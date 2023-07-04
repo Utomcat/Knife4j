@@ -1,0 +1,50 @@
+server:
+  port: 8086
+  servlet:
+    context-path: /
+spring:
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=GMT%2B8
+    username: user
+    password: 123456
+  jpa:
+    open-in-view: false
+  application:
+    name: knife4j
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: "default"
+      paths-to-match: "/**"
+      packages-to-scan: com.ranyk.knife4j.api
+    - group: "test"
+      paths-to-match: "/test/**"
+      packages-to-scan: com.ranyk.knife4j.api
+  default-flat-param-object: true
+
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+    swagger-model-name: 实体对象
+  documents:
+    - name: 默认
+      locations: classpath:markdown/*
+      group: default
+    - name: 公有模块
+      locations: classpath:public/*
+      group: public
+    - name: 测试模块
+      locations: classpath:test/*
+      group: test
